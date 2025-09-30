@@ -2,3 +2,7 @@ html{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 2.5vw 1vw;
 }
+header{
+    display:flex;
+    flex-direction: row;
+}
