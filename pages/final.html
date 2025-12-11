@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/nav-styles.css">
+    <link rel="stylesheet" href="../styles/home-style.css">
+    <link rel="stylesheet" href="../styles/video-style.css">
+    <title>Final Project</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./assignment-0.html">A0</a></li>
+            <li><a href="./assignment-1.html">A1</a></li>
+            <li><a href="./assignment-2.html">A2</a></li>
+            <li><a href="./assignment-3.html">A3</a></li>
+            <li><a href="./assignment-4.html">A4</a></li>
+            <li><a href="./final.html">Final</a></li>
+        </ul>
+    </nav>
+    <h1>Final Project</h1>
+    
+    <h2>Abstract</h2>
+    <p>For this project, I wanted to make an interactable coil which allows users to control its end points, direction when it’s curved and its ability to stretch when needed.</p>
+
+    <h2>Original Plan of Work</h2>
+    <p>When I first started, I was conflicted about using spring mesh and controlling it using bones and joints or making it via code in Unity. As there were not any resources available other than the Rope tool, I decided to go with the second route.</p>
+    
+    <h2>Pre-requisites</h2>
+    <ol>
+        <li>
+            Basic understanding of Unity: In this project, I had used LineRenderer to make my spring, along with Transforms for start, middle and end points to get the required positions and directions.
+            <ul>
+            <li>LineRenderer is used to draw lines in Unity using positionCount and positions.</li>
+            <li>Transforms contain an object’s position, rotation and scale.</li>
+            </ul>
+        </li>
+        <li>Uses parabolic equations like y =4. x^2</li>
+        <li>Helix formula: x(t) = rcos(t), y= rsin(t), z(t)= a.t, where x,yz are the coordinates and t acts as time or angle offset.</li>
+    </ol>
+
+    <h2>Programmatic Approach</h2>
+    <p>
+        Since this was a massive undertaking, I decided to break down my tasks into several subsections to make it easier to follow.
+    </p>
+
+     <video src="../media/final/SpringCables.mp4" autoplay="true" controls="true"></video>
+    <ol>
+        <li>Rendering helix
+            <ul>
+                <li>
+                    Before, I used the formula to get all the points of the helix in a Vector3 array, I needed the user to enter total points, coil width, sensitivity and terminal points.
+                <ul>
+                    <li>Total points: Determines the size of the Vector3 array.</li>
+                    <li>Coil width: Determines the width between two consecutive coils.</li>
+                    <li>Sensitivity: The higher this value, the softer the turns between two points would be.</li>
+                    <li>Terminal Points: Determines the start and end points.</li>
+                </ul>
+                </li>
+                
+                <li>Then, I passed those values to my lineRenderer in Unity to make those lines.</li>
+                <li>Once I got the code functioning, I made it real-time which means the helix would be updated if the user changes any of its values for easier testing. This solidified my understanding about the formula.</li>
+            </ul>
+        </li>
+
+        <li>
+            Helix following its end points directions.
+            <ul>
+                <li>I used Quaternion.LookDirection which took the endpoint’s coordinates to make the helix follow its end.</li>
+            </ul>
+        </li>
+
+        <li>
+            Stretching the helix by moving its end points.
+            <ul>
+                <li>Coil width is controlled by circumference of the coil by the total coils count</li>
+            </ul>
+        </li>
+
+        <li>Making an arc without a helix.
+            <ul>
+                <li>Used Parabolic equations like y =4.x^2 to make a simple arc.</li>
+            </ul>
+        </li>
+
+        <li>Combining arc and helix equations.
+            <ul>
+                <li>Combining the arc with the helix turned out to be challenging as it broke my code at certain points. So, I ended up using the point to be the sum of the both equations, multiplied by rotation.</li>
+            </ul>
+        </li>
+
+        <li>
+            Making the arc’s radius proportional to distance changed by the end points.
+            <ul>
+                <li>Calculated the proportionality constant by previous distance value to the new one.</li>
+            </ul>
+        </li>
+
+        <li>
+            Controlling the midpoint’s direction to control the arc.
+            <ul>
+                <li>Used the mid point transform to rotate the arc’s direction.</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h2>Final Result</h2>
+    <ul>
+        <li>Made a spring that can stretch and bend.</li>
+        <li>Users can control its length, total points rendered, coil width and can rotate the curve of the coil.</li>
+        <li>Computationally expensive.</li>
+    </ul>
+
+    <h2>Future Work</h2>
+    <ol>
+        <li>Implement threading to test if it gives higher framerate and to support multiple springs at the same time.</li>
+        <li>Fix the rotation glitches which is potentially caused by using Euler Angles and not Quaternion.</li>
+        <li>Fix the coil width issue when its end points are too close to each other.</li>
+        <li>Publish it as a plugin in Unity Asset Store.</li>
+    </ol>
+
+    <h2>Conclusion</h2>
+    <ol>
+        <li>This was a challenging project due to limited resources about implementing springs in Unity.</li>
+        <li>Realized springs are expensive to use in games.</li>
+        <li>I learned to troubleshoot and think outside the box.</li>
+        <li>Having a firm understanding about the mathematics behind rendering springs does speed up this process significantly.</li>
+    </ol>
+
+    <h2>Resources</h2>
+    <ul>
+        <li><a href="https://assetstore.unity.com/packages/tools/physics/optimized-ropes-and-cables-tool-287164?srsltid=AfmBOopa7C3ONlPyjJrf7PHnMXjXYRYHu5sNlMcIDxDapsnkO9-4Fean">Rope tool</a></li>
+        <li><a href="https://github.com/vaibhavyxx/claw-machine">Github</a></li>
+    </ul>
+   
+</body>
+</html>
